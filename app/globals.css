@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --font-family-base: var(--font-inter);
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+html, body {
+  background: black;
+}
