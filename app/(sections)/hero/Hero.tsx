@@ -63,8 +63,8 @@ export default function Hero() {
   }, []);
   
   return (
-    <section id="heroSection" className="min-h-screen bg-black px-[17px] overflow-hidden">
-      <div id="heroTextContainer" className="flex flex-col justify-between w-full h-screen">
+    <section id="heroSection" className="min-h-screen bg-black px-[17px] overflow-hidden ">
+      <div id="heroTextContainer" className="flex flex-col justify-center w-full h-screen">
   
   <div className="w-full flex justify-start items-start pt-[22px]">
     <h1 id="toptext" className="text-[13vw] font-bold leading-none">
