@@ -99,8 +99,7 @@ export default function About() {
 
           <div className="w-56 cardContent">
             <p className="text-[16px]">
-              We build experiences that convert attention into measurable
-              growth.
+              Fast, modern, conversion-focused builds that make your website look great and work even better.
             </p>
           </div>
         </div>
