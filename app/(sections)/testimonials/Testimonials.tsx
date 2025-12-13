@@ -58,16 +58,19 @@ const TESTIMONIALS: Testimonial[] = [
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(1);
+
   const contentsRef = useRef<(HTMLDivElement | null)[]>([]);
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     contentsRef.current.forEach((content, index) => {
       if (!content) return;
-      gsap.set(content, {
-        height: index === activeIndex ? "auto" : 0,
-        opacity: index === activeIndex ? 1 : 0,
-      });
+
+      if (index === activeIndex) {
+        gsap.set(content, { height: "auto", opacity: 1 });
+      } else {
+        gsap.set(content, { height: 0, opacity: 0 });
+      }
     });
   }, []);
 
@@ -86,6 +89,7 @@ export default function Testimonials() {
         duration: 0.5,
         ease: "power3.inOut",
       });
+
       const head = oldItem?.querySelector("h3");
       if (head) gsap.to(head, { color: "#e5e5e5", duration: 0.3 });
     }
@@ -111,8 +115,8 @@ export default function Testimonials() {
 
   return (
     <>
-      {/* ✅ RESPONSIVE HEADER (FIXED) */}
-      <div className="w-full max-w-5xl px-6 pt-24 mx-auto mb-24 md:px-12 lg:px-0 md:pt-32">
+      {/* HEADER */}
+      <div className="w-full max-w-5xl px-6 pt-24 mx-auto mb-24 md:px-12 md:pt-32">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.1]">
           Trusted by the builders <br /> defining the future.
         </h1>
@@ -129,7 +133,9 @@ export default function Testimonials() {
           {TESTIMONIALS.map((t, idx) => (
             <div
               key={t.name}
-              ref={(el) => (itemsRef.current[idx] = el)}
+              ref={(el) => {
+                itemsRef.current[idx] = el;
+              }}
               className="transition-colors duration-500 border-b cursor-pointer border-neutral-800 hover:border-neutral-600 group"
               onClick={() => toggleItem(idx)}
             >
@@ -144,10 +150,15 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div ref={(el) => (contentsRef.current[idx] = el)}>
+              <div
+                ref={(el) => {
+                  contentsRef.current[idx] = el;
+                }}
+                className="testimonial-content"
+              >
                 <div className="pt-2 pb-10">
                   <div className="relative p-8 overflow-hidden border md:p-12 border-neutral-800 rounded-3xl bg-neutral-900/50">
-                    <div className="absolute top-0 right-0 w-64 h-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
 
                     <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-12">
                       <div className="flex flex-col gap-6 md:col-span-3">
