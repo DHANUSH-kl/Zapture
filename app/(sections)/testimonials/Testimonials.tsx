@@ -64,12 +64,10 @@ export default function Testimonials() {
   useEffect(() => {
     contentsRef.current.forEach((content, index) => {
       if (!content) return;
-
-      if (index === activeIndex) {
-        gsap.set(content, { height: "auto", opacity: 1 });
-      } else {
-        gsap.set(content, { height: 0, opacity: 0 });
-      }
+      gsap.set(content, {
+        height: index === activeIndex ? "auto" : 0,
+        opacity: index === activeIndex ? 1 : 0,
+      });
     });
   }, []);
 
@@ -88,7 +86,6 @@ export default function Testimonials() {
         duration: 0.5,
         ease: "power3.inOut",
       });
-
       const head = oldItem?.querySelector("h3");
       if (head) gsap.to(head, { color: "#e5e5e5", duration: 0.3 });
     }
@@ -114,27 +111,26 @@ export default function Testimonials() {
 
   return (
     <>
-      {/* ✔️ Left-aligned heading with 104px padding */}
-      <div className="px-[104px] pt-[56px] max-w-none mb-24">
-        <h1 className="text-4xl md:text-6xl font-medium tracking-tight text-white leading-[1.1] text-left">
+      {/* ✅ RESPONSIVE HEADER (FIXED) */}
+      <div className="w-full max-w-5xl px-6 pt-24 mx-auto mb-24 md:px-12 lg:px-0 md:pt-32">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.1]">
           Trusted by the builders <br /> defining the future.
         </h1>
-        <p className="max-w-xl mt-6 text-xl font-light leading-relaxed text-left text-neutral-400">
-          Join thousands of developers and designers who rely on our infrastructure to scale their
-          visions from zero to one, and beyond.
+
+        <p className="max-w-2xl mt-6 text-base font-light leading-relaxed sm:text-lg md:text-xl text-neutral-400">
+          Join thousands of developers and designers who rely on our
+          infrastructure to scale their visions from zero to one, and beyond.
         </p>
       </div>
 
-      {/* Accordion Section (centered like original) */}
+      {/* ACCORDION */}
       <main className="relative z-10 w-full max-w-5xl px-6 pb-32 mx-auto">
-        <div className="border-t border-neutral-800" id="accordion-container">
+        <div className="border-t border-neutral-800">
           {TESTIMONIALS.map((t, idx) => (
             <div
               key={t.name}
-              ref={(el) => {
-                itemsRef.current[idx] = el;
-              }}
-              className="transition-colors duration-500 border-b cursor-pointer group testimonial-item border-neutral-800 hover:border-neutral-600"
+              ref={(el) => (itemsRef.current[idx] = el)}
+              className="transition-colors duration-500 border-b cursor-pointer border-neutral-800 hover:border-neutral-600 group"
               onClick={() => toggleItem(idx)}
             >
               <div className="flex flex-col justify-between py-8 pr-4 md:flex-row md:items-center md:py-10">
@@ -148,17 +144,12 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div
-                ref={(el) => {
-                  contentsRef.current[idx] = el;
-                }}
-                className="testimonial-content"
-              >
+              <div ref={(el) => (contentsRef.current[idx] = el)}>
                 <div className="pt-2 pb-10">
-                  <div className="relative p-8 overflow-hidden border bg-neutral-900/50 border-neutral-800 rounded-3xl md:p-12">
-                    <div className="absolute top-0 right-0 w-64 h-64 translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none bg-white/5 blur-3xl"></div>
+                  <div className="relative p-8 overflow-hidden border md:p-12 border-neutral-800 rounded-3xl bg-neutral-900/50">
+                    <div className="absolute top-0 right-0 w-64 h-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl"></div>
 
-                    <div className="relative z-10 grid items-start grid-cols-1 gap-10 md:grid-cols-12">
+                    <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-12">
                       <div className="flex flex-col gap-6 md:col-span-3">
                         <div className="w-24 h-24 overflow-hidden shadow-2xl rounded-2xl bg-neutral-800 ring-1 ring-white/10">
                           <img
@@ -169,8 +160,10 @@ export default function Testimonials() {
                         </div>
 
                         <div className="flex items-center gap-2 text-neutral-400">
-                          <span className="w-5 h-5">{t.icon}</span>
-                          <span className="text-sm font-medium tracking-wide uppercase">{t.company}</span>
+                          {t.icon}
+                          <span className="text-sm font-medium tracking-wide uppercase">
+                            {t.company}
+                          </span>
                         </div>
                       </div>
 

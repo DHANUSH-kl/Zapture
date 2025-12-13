@@ -10,7 +10,7 @@ import Navbar from "./(sections)/navbar/Navbar";
 export default function Home() {
   return (
     <main className="text-white bg-black">
-      {/* <Navbar /> */}
+      <Navbar />
       <Hero />
       <About />
       <Services />
