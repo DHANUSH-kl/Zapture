@@ -15,39 +15,71 @@ export default function LuxuryNav() {
 
       if (window.scrollY > 50) {
         navbarRef.current.classList.add(
-          "bg-white",
-          "shadow-sm",
-          "py-4",
-          "border-neutral-200"
-        );
-        navbarRef.current.classList.remove("py-6", "border-white/0");
+          // glass effect
+          "bg-black/20",
+          "backdrop-blur-xl",
+          "backdrop-saturate-150",
 
-        navbarRef.current
-          .querySelectorAll(".text-white")
-          .forEach(el => {
-            el.classList.replace("text-white", "text-neutral-900");
-            el.classList.remove("mix-blend-difference");
-          });
+          // separation
+          "border-white/10",
+          "shadow-[0_10px_40px_rgba(0,0,0,0.15)]",
+
+          // size
+          "py-4"
+        );
+
+        navbarRef.current.classList.remove(
+          "py-6",
+          "border-white/0",
+          "bg-white",
+          "backdrop-blur-none"
+        );
       } else {
         navbarRef.current.classList.remove(
-          "bg-white",
-          "shadow-sm",
-          "py-4",
-          "border-neutral-200"
+          "bg-black/20",
+          "backdrop-blur-xl",
+          "backdrop-saturate-150",
+          "border-white/10",
+          "shadow-[0_10px_40px_rgba(0,0,0,0.15)]",
+          "py-4"
         );
-        navbarRef.current.classList.add("py-6", "border-white/0");
 
-        navbarRef.current
-          .querySelectorAll(".text-neutral-900")
-          .forEach(el => {
-            el.classList.replace("text-neutral-900", "text-white");
-            el.classList.add("mix-blend-difference");
-          });
+        navbarRef.current.classList.add(
+          "py-6",
+          "border-white/0"
+        );
       }
     };
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, [isMenuOpen]);
+
+  /* ---------------- menu open / close navbar override ---------------- */
+  useEffect(() => {
+    if (!navbarRef.current) return;
+
+    if (isMenuOpen) {
+      navbarRef.current.classList.remove(
+        "bg-black/20",
+        "backdrop-blur-xl",
+        "backdrop-saturate-150",
+        "border-white/10",
+        "shadow-[0_10px_40px_rgba(0,0,0,0.15)]"
+      );
+
+      navbarRef.current.classList.add(
+        "bg-white",
+        "border-neutral-200",
+        "shadow-sm"
+      );
+    } else {
+      navbarRef.current.classList.remove(
+        "bg-white",
+        "border-neutral-200",
+        "shadow-sm"
+      );
+    }
   }, [isMenuOpen]);
 
   /* ---------------- parallax ---------------- */
@@ -72,7 +104,14 @@ export default function LuxuryNav() {
       >
         <div className="flex items-center justify-between px-6 md:px-12">
           {/* Logo */}
-          <Link href="/" className="relative z-50 text-white mix-blend-difference">
+          <Link
+            href="/"
+            className={`relative z-50 ${
+              isMenuOpen
+                ? "text-neutral-900"
+                : "text-white mix-blend-difference"
+            }`}
+          >
             <div className="flex flex-col leading-none">
               <span className="text-2xl font-medium tracking-tighter">
                 ZAPTURE
@@ -83,14 +122,15 @@ export default function LuxuryNav() {
           {/* Menu Button */}
           <button
             onClick={() => {
-              setIsMenuOpen(v => !v);
+              setIsMenuOpen((v) => !v);
               document.body.style.overflow = !isMenuOpen ? "hidden" : "";
             }}
-            className={`relative z-50 flex items-center gap-2 cursor-pointer transition-colors ${
-              isMenuOpen
-                ? "text-neutral-900 mix-blend-normal"
-                : "text-white mix-blend-difference"
-            }`}
+            className={`relative z-50 flex items-center gap-2 cursor-pointer
+                        transition-colors ${
+                          isMenuOpen
+                            ? "text-neutral-900"
+                            : "text-white mix-blend-difference"
+                        }`}
           >
             <span className="text-sm font-medium tracking-widest uppercase transition-all duration-300">
               {isMenuOpen ? "Close" : "Menu"}
@@ -98,23 +138,22 @@ export default function LuxuryNav() {
 
             <div className="relative w-6 h-4">
               <span
-                className={`absolute w-full h-[1.5px] bg-current transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isMenuOpen
-                    ? "top-2 rotate-45"
-                    : "top-0"
-                }`}
+                className={`absolute w-full h-[1.5px] bg-current
+                            transition-all duration-300
+                            ease-[cubic-bezier(0.25,1,0.5,1)]
+                            ${isMenuOpen ? "top-2 rotate-45" : "top-0"}`}
               />
               <span
-                className={`absolute w-2/3 h-[1.5px] bg-current top-1.5 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isMenuOpen ? "opacity-0" : ""
-                }`}
+                className={`absolute w-2/3 h-[1.5px] bg-current top-1.5
+                            transition-all duration-300
+                            ease-[cubic-bezier(0.25,1,0.5,1)]
+                            ${isMenuOpen ? "opacity-0" : ""}`}
               />
               <span
-                className={`absolute w-full h-[1.5px] bg-current transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isMenuOpen
-                    ? "top-2 -rotate-45"
-                    : "top-3"
-                }`}
+                className={`absolute w-full h-[1.5px] bg-current
+                            transition-all duration-300
+                            ease-[cubic-bezier(0.25,1,0.5,1)]
+                            ${isMenuOpen ? "top-2 -rotate-45" : "top-3"}`}
               />
             </div>
           </button>
@@ -134,11 +173,19 @@ export default function LuxuryNav() {
                 <Link
                   key={item}
                   href="/"
-                  className="flex items-center justify-center flex-1 group hover:bg-neutral-950 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  className="flex items-center justify-center flex-1
+                             group hover:bg-neutral-950
+                             transition-all duration-500
+                             ease-[cubic-bezier(0.25,1,0.5,1)]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <span
-                    className="text-3xl tracking-tight uppercase reveal-text md:text-5xl text-neutral-900 group-hover:text-white group-hover:tracking-wider transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                    className="text-3xl tracking-tight uppercase
+                               reveal-text md:text-5xl
+                               text-neutral-900 group-hover:text-white
+                               group-hover:tracking-wider
+                               transition-all duration-500
+                               ease-[cubic-bezier(0.25,1,0.5,1)]"
                     style={{ transitionDelay: `${150 + i * 50}ms` }}
                   >
                     {item}
