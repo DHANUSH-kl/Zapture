@@ -2,7 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Quote as IconQuote, Zap, PenTool, Layers, Activity } from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 type Testimonial = {
   name: string;
@@ -59,9 +64,61 @@ const TESTIMONIALS: Testimonial[] = [
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(1);
 
-  const contentsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const subtitleRef = useRef<HTMLParagraphElement | null>(null);
 
+  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const contentsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  /* ---------------- HEADER APPEAR ANIMATION ---------------- */
+  useEffect(() => {
+    if (!headerRef.current || !titleRef.current || !subtitleRef.current)
+      return;
+
+    const ctx = gsap.context(() => {
+      gsap.set(titleRef.current, {
+        opacity: 0,
+        y: 50,
+        filter: "blur(8px)",
+      });
+
+      gsap.set(subtitleRef.current, {
+        opacity: 0,
+        y: 30,
+        filter: "blur(6px)",
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 75%",
+          once: true,
+        },
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 1.1,
+      }).to(
+        subtitleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.9,
+        },
+        "+=0.5"
+      );
+    }, headerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  /* ---------------- INITIAL ACCORDION STATE ---------------- */
   useEffect(() => {
     contentsRef.current.forEach((content, index) => {
       if (!content) return;
@@ -103,7 +160,7 @@ export default function Testimonials() {
       gsap.fromTo(
         inner,
         { y: 10, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "power2.out" }
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.05 }
       );
 
       const head = newItem?.querySelector("h3");
@@ -116,12 +173,21 @@ export default function Testimonials() {
   return (
     <>
       {/* HEADER */}
-      <div className="w-full max-w-5xl px-6 pt-24 mx-auto mb-24 md:px-12 md:pt-32">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.1]">
+      <div
+        ref={headerRef}
+        className="w-full max-w-5xl px-6 pt-4 mx-auto mb-24 md:px-12 md:pt-2"
+      >
+        <h1
+          ref={titleRef}
+          className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.1]"
+        >
           Trusted by the builders <br /> defining the future.
         </h1>
 
-        <p className="max-w-2xl mt-6 text-base font-light leading-relaxed sm:text-lg md:text-xl text-neutral-400">
+        <p
+          ref={subtitleRef}
+          className="max-w-2xl mt-6 text-base font-light leading-relaxed sm:text-lg md:text-xl text-neutral-400"
+        >
           Join thousands of developers and designers who rely on our
           infrastructure to scale their visions from zero to one, and beyond.
         </p>
@@ -140,13 +206,15 @@ export default function Testimonials() {
               onClick={() => toggleItem(idx)}
             >
               <div className="flex flex-col justify-between py-8 pr-4 md:flex-row md:items-center md:py-10">
-                <h3 className="text-2xl font-medium tracking-tight transition-colors duration-300 md:text-3xl text-neutral-200 group-hover:text-white">
+                <h3 className="text-2xl font-medium tracking-tight md:text-3xl text-neutral-200 group-hover:text-white">
                   {t.name}
                 </h3>
 
                 <div className="flex items-center gap-2 mt-2 text-lg font-light md:mt-0 text-neutral-500">
                   <span>{t.titlePrefix}</span>
-                  <span className="font-medium text-neutral-300">{t.company}</span>
+                  <span className="font-medium text-neutral-300">
+                    {t.company}
+                  </span>
                 </div>
               </div>
 
@@ -154,7 +222,6 @@ export default function Testimonials() {
                 ref={(el) => {
                   contentsRef.current[idx] = el;
                 }}
-                className="testimonial-content"
               >
                 <div className="pt-2 pb-10">
                   <div className="relative p-8 overflow-hidden border md:p-12 border-neutral-800 rounded-3xl bg-neutral-900/50">

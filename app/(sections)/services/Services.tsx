@@ -1,18 +1,89 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icon } from "@iconify/react";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function ServicesPage() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subHeadlineRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current || !headlineRef.current || !subHeadlineRef.current)
+      return;
+
+    const ctx = gsap.context(() => {
+      /* ---------------- INITIAL STATES ---------------- */
+      gsap.set(headlineRef.current, {
+        opacity: 0,
+        y: 60,
+        filter: "blur(8px)",
+      });
+
+      gsap.set(subHeadlineRef.current, {
+        opacity: 0,
+        y: 30,
+        filter: "blur(6px)",
+      });
+
+      /* ---------------- TIMELINE ---------------- */
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          once: true,
+        },
+        defaults: {
+          ease: "power3.out",
+        },
+      });
+
+      tl.to(headlineRef.current, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 1.2,
+      }).to(
+        subHeadlineRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.9,
+        },
+        "+=0.5" // 👈 0.5s delay after headline
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="w-full min-h-screen overflow-x-hidden bg-black selection:bg-white selection:text-black">
-
+    <div
+      ref={sectionRef}
+      className="w-full min-h-screen overflow-x-hidden bg-black selection:bg-white selection:text-black"
+    >
       {/* Main Wrapper */}
-      <div className="w-full max-w-[1920px] mx-auto min-h-screen flex flex-col px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-24 relative z-10">
-
+      <div className="w-full max-w-[1920px] mx-auto min-h-screen
+                      flex flex-col px-6 py-12 md:px-12 md:py-20
+                      lg:px-24 lg:py-24 relative z-10"
+      >
         {/* Header Section */}
-        <header className="flex flex-col items-end justify-start w-full mb-24 md:mb-32 lg:mb-40">
+        <header className="flex flex-col items-end justify-start w-full mb-24 md:mb-32 lg:mb-40"
+        >
           <div className="relative group">
-            <h1 className="text-white text-5xl md:text-7xl lg:text-9xl font-semibold tracking-tighter text-right leading-[0.95] md:leading-[0.9]">
+            <h1
+              ref={headlineRef}
+              className="text-white text-5xl md:text-7xl lg:text-9xl
+                         font-semibold tracking-tighter text-right
+                         leading-[0.95] md:leading-[0.9]"
+            >
               All Directions.<br />
               <span className="transition-colors duration-700 text-neutral-500 group-hover:text-white">
                 One Vision.
@@ -20,17 +91,19 @@ export default function ServicesPage() {
             </h1>
 
             {/* Decorative Accent */}
-            <div className="absolute w-8 h-8 border-t border-r -right-4 -top-4 md:w-12 md:h-12 border-white/20 rounded-tr-3xl"></div>
+            <div className="absolute w-8 h-8 border-t border-r -right-4 -top-4 md:w-12 md:h-12 border-white/20 rounded-tr-3xl" />
           </div>
 
-          <p className="max-w-xs mt-6 text-base font-medium leading-relaxed tracking-tight text-right text-neutral-400 md:text-xl lg:text-2xl md:mt-8 md:max-w-2xl">
+          <p
+            ref={subHeadlineRef}
+            className="max-w-xs mt-6 text-base font-medium leading-relaxed tracking-tight text-right text-neutral-400 md:text-xl lg:text-2xl md:mt-8 md:max-w-2xl"
+          >
             Zapturre unites creativity, tech, and culture to move brands forward.
           </p>
         </header>
 
         {/* Services List */}
         <div className="flex flex-col items-end w-full">
-
           {[
             { label: "Branding", icon: "lucide:arrow-down-right" },
             { label: "Design", icon: "lucide:pen-tool" },
@@ -44,14 +117,16 @@ export default function ServicesPage() {
           ].map((service, index, arr) => (
             <div
               key={service.label}
-              className={`group service-row w-full ${
+              className={`group w-full ${
                 index === arr.length - 1
                   ? "border-t border-b"
                   : "border-t"
-              } border-white/10 hover:border-white/40 transition-colors duration-500 cursor-pointer relative py-8 md:py-10 flex justify-end items-center`}
+              } border-white/10 hover:border-white/40
+                 transition-colors duration-500 cursor-pointer
+                 relative py-8 md:py-10 flex justify-end items-center`}
             >
-              {/* Icon (RESPONSIVE SIZE FIXED HERE) */}
-              <div className="absolute left-0 flex items-center justify-center text-white md:left-12 icon-reveal">
+              {/* Icon */}
+              <div className="absolute left-0 flex items-center justify-center text-white md:left-12">
                 <Icon
                   icon={service.icon}
                   className="w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12"
@@ -60,14 +135,14 @@ export default function ServicesPage() {
               </div>
 
               {/* Text */}
-              <h2 className="text-4xl font-semibold tracking-tighter service-text text-neutral-600 group-hover:text-white md:text-6xl lg:text-8xl">
+              <h2 className="text-4xl font-semibold tracking-tighter text-neutral-600 group-hover:text-white md:text-6xl lg:text-8xl">
                 {service.label}
               </h2>
             </div>
           ))}
         </div>
 
-        {/* Footer / Bottom Decoration */}
+        {/* Footer */}
         <div className="flex items-end justify-between w-full mt-24 text-neutral-700">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-xs tracking-widest uppercase">
@@ -93,10 +168,14 @@ export default function ServicesPage() {
         </div>
       </div>
 
-      {/* Subtle Background Noise / Gradient */}
+      {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] mix-blend-overlay"></div>
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/5 rounded-full blur-[100px] mix-blend-overlay"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px]
+                        bg-white/5 rounded-full blur-[120px]
+                        mix-blend-overlay" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px]
+                        bg-white/5 rounded-full blur-[100px]
+                        mix-blend-overlay" />
       </div>
     </div>
   );

@@ -223,7 +223,7 @@ export default function Hero() {
 
         {/* ---------------- FOOTER ---------------- */}
         <footer className="flex flex-col items-end justify-between px-6 py-8 border-t border-neutral-900 md:px-12 md:flex-row">
-          <div className="flex gap-8">
+          {/* <div className="flex gap-8">
             <div>
               <span className="text-[10px] uppercase text-neutral-600">
                 Location
@@ -236,12 +236,12 @@ export default function Hero() {
               </span>
               <div className="text-xs">hello@agncy.one</div>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-6 mt-6 md:mt-0">
-            <Twitter className="w-5 h-5 text-neutral-500 hover:text-white" />
+            {/* <Twitter className="w-5 h-5 text-neutral-500 hover:text-white" />
             <Instagram className="w-5 h-5 text-neutral-500 hover:text-white" />
-            <Linkedin className="w-5 h-5 text-neutral-500 hover:text-white" />
+            <Linkedin className="w-5 h-5 text-neutral-500 hover:text-white" /> */}
             <div className="flex items-center gap-2 text-xs text-neutral-400">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               Accepting new clients
