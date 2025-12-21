@@ -39,7 +39,7 @@ export default function Footer() {
               href="#"
               className="inline-block text-2xl font-medium tracking-tighter text-white"
             >
-              Zapture
+              ZAPTURRE
             </a>
 
             <p className="max-w-sm text-sm font-light leading-relaxed">
@@ -67,7 +67,7 @@ export default function Footer() {
               href="mailto:hello@zapture.studio"
               className="text-sm font-light transition-colors hover:text-white"
             >
-              hello@zapture.studio
+              support@zapturre.com
             </a>
 
             <div className="text-sm font-light text-neutral-500">
@@ -84,14 +84,20 @@ export default function Footer() {
 
             <ul className="flex flex-col gap-3">
               {[
-                { label: "LinkedIn", icon: "lucide:linkedin" },
-                { label: "Twitter / X", icon: "lucide:twitter" },
-                { label: "Instagram", icon: "lucide:instagram" },
+                { label: "LinkedIn", icon: "lucide:linkedin", href: "#" },
+                { label: "Twitter / X", icon: "lucide:twitter", href: "#" },
+                {
+                  label: "Instagram",
+                  icon: "lucide:instagram",
+                  href: "https://www.instagram.com/zapturre?igsh=MW8zdWV4cW9jN3hlZw==",
+                },
                 // { label: "Dribbble", icon: "lucide:dribbble" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
-                    href="#"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm font-light transition-colors group hover:text-white"
                   >
                     <Icon
@@ -111,7 +117,7 @@ export default function Footer() {
         {/* ---------------- BOTTOM BAR ---------------- */}
         <div className="flex flex-col items-center justify-between gap-6 pt-16 mt-16 border-t md:flex-row border-neutral-900">
           <p className="text-xs font-light text-neutral-600">
-            © 2025 Zapture Studio. All rights reserved.
+            © 2025 ZAPTURRE Studio. All rights reserved.
           </p>
 
           <div className="flex gap-8">
@@ -127,12 +133,6 @@ export default function Footer() {
             >
               Terms of Service
             </a>
-            {/* <a
-              href="#"
-              className="text-xs font-light transition-colors text-neutral-600 hover:text-neutral-400"
-            >
-              Sitemap
-            </a> */}
           </div>
         </div>
       </div>

@@ -105,7 +105,7 @@ export default function LuxuryNav() {
         <div className="flex items-center justify-between px-6 md:px-12">
           {/* Logo */}
           <Link
-            href="/"
+            href="#home"
             className={`relative z-50 ${
               isMenuOpen
                 ? "text-neutral-900"
@@ -114,7 +114,7 @@ export default function LuxuryNav() {
           >
             <div className="flex flex-col leading-none">
               <span className="text-2xl font-medium tracking-tighter">
-                ZAPTURE
+                ZAPTURRE
               </span>
             </div>
           </Link>
@@ -168,31 +168,38 @@ export default function LuxuryNav() {
       >
         <div className="flex flex-col h-full pt-24 pb-12">
           <div className="flex flex-col justify-center flex-1">
-            {["Home", "About", "Products", "Services", "Contact", "Careers"].map(
-              (item, i) => (
-                <Link
-                  key={item}
-                  href="/"
-                  className="flex items-center justify-center flex-1
-                             group hover:bg-neutral-950
+            {[
+              { label: "Home", href: "#home" },
+              { label: "About", href: "#about" },
+              { label: "Services", href: "#services" },
+              { label: "Testimonials", href: "#testimonials" },
+              { label: "Contact", href: "#contact" },
+            ].map((item, i) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="flex items-center justify-center flex-1
+                           group hover:bg-neutral-950
+                           transition-all duration-500
+                           ease-[cubic-bezier(0.25,1,0.5,1)]"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  document.body.style.overflow = "";
+                }}
+              >
+                <span
+                  className="text-3xl tracking-tight uppercase
+                             reveal-text md:text-5xl
+                             text-neutral-900 group-hover:text-white
+                             group-hover:tracking-wider
                              transition-all duration-500
                              ease-[cubic-bezier(0.25,1,0.5,1)]"
-                  onClick={() => setIsMenuOpen(false)}
+                  style={{ transitionDelay: `${150 + i * 50}ms` }}
                 >
-                  <span
-                    className="text-3xl tracking-tight uppercase
-                               reveal-text md:text-5xl
-                               text-neutral-900 group-hover:text-white
-                               group-hover:tracking-wider
-                               transition-all duration-500
-                               ease-[cubic-bezier(0.25,1,0.5,1)]"
-                    style={{ transitionDelay: `${150 + i * 50}ms` }}
-                  >
-                    {item}
-                  </span>
-                </Link>
-              )
-            )}
+                  {item.label}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

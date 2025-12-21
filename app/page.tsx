@@ -6,16 +6,30 @@ import Testimonials from "./(sections)/testimonials/Testimonials";
 import Footer from "./(sections)/footer/Footer";
 import Navbar from "./(sections)/navbar/Navbar";
 
-
 export default function Home() {
   return (
     <main className="text-white bg-black">
       <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Testimonials />
-      <Footer />
+
+      <section id="home">
+        <Hero />
+      </section>
+
+      <section id="about">
+        <About />
+      </section>
+
+      <section id="services">
+        <Services />
+      </section>
+
+      <section id="testimonials">
+        <Testimonials />
+      </section>
+
+      <section id="contact">
+        <Footer />
+      </section>
     </main>
   );
 }
