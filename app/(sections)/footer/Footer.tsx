@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
 
           <a
-            href="#"
+            href="https://forms.gle/yajTUhDy2oHbWUp59"
             className="flex items-center gap-3 text-lg font-medium tracking-tight text-white transition-colors duration-300 group lg:text-xl hover:text-neutral-400"
           >
             Start a Project
@@ -64,7 +64,7 @@ export default function Footer() {
             </span>
 
             <a
-              href="mailto:hello@zapture.studio"
+              href="mailto:support@zapturre.com"
               className="text-sm font-light transition-colors hover:text-white"
             >
               support@zapturre.com
@@ -84,8 +84,8 @@ export default function Footer() {
 
             <ul className="flex flex-col gap-3">
               {[
-                { label: "LinkedIn", icon: "lucide:linkedin", href: "#" },
-                { label: "Twitter / X", icon: "lucide:twitter", href: "#" },
+                { label: "LinkedIn", icon: "lucide:linkedin", href: "https://www.linkedin.com/company/zapturre/" },
+                { label: "Twitter / X", icon: "lucide:twitter", href: "https://x.com/zapturre" },
                 {
                   label: "Instagram",
                   icon: "lucide:instagram",

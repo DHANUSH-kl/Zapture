@@ -208,9 +208,15 @@ export default function Hero() {
                           revealBtn ? "active" : ""
                         }`}
                       >
-                        <button className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-black bg-white rounded">
-                          Start Project <ArrowRight className="w-4 h-4" />
-                        </button>
+                        <button
+  onClick={() =>
+    window.open("https://forms.gle/yajTUhDy2oHbWUp59", "_blank")
+  }
+  className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-black bg-white rounded"
+>
+  Start Project <ArrowRight className="w-4 h-4" />
+</button>
+
                       </div>
                     </div>
                   </div>
