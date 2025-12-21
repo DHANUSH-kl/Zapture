@@ -117,7 +117,7 @@ export default function Footer() {
         {/* ---------------- BOTTOM BAR ---------------- */}
         <div className="flex flex-col items-center justify-between gap-6 pt-16 mt-16 border-t md:flex-row border-neutral-900">
           <p className="text-xs font-light text-neutral-600">
-            © 2025 ZAPTURRE Studio. All rights reserved.
+            © 2025 ZAPTURRE . All rights reserved.
           </p>
 
           <div className="flex gap-8">
