@@ -3,7 +3,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Quote as IconQuote, Zap, PenTool, Layers, Activity } from "lucide-react";
+import {
+  Quote as IconQuote,
+  User,
+} from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,44 +23,36 @@ type Testimonial = {
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Edwin Chen",
-    titlePrefix: "Founder and CEO,",
-    company: "Surge AI",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+    name: "Mist Coorg",
+    titlePrefix: "Founder,",
+    company: "Mist Coorg",
+    image: "",
     quote:
-      "The platform has completely transformed how we handle data labeling. It's not just a tool; it's an extension of our engineering team. The latency reduction alone has been a game-changer for our real-time models.",
-    icon: <Zap className="w-5 h-5" />,
+    "Zapturre clearly understood our bulk chocolate business and executed with speed.Their creative strategy directly supported demand generation and fast conversions.The results were visible within days and exceeded our expectations.",
   },
   {
-    name: "Vladimir Danila",
-    titlePrefix: "Founder and CEO,",
-    company: "Linearity",
-    image:
-      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200&auto=format&fit=crop",
+    name: "RKB Mines",
+    titlePrefix: "Chairman,",
+    company: "RKB Mines",
+    image: "",
     quote:
-      "Konpo for us is like our internal design team. Every single design they made for us is amazing. We're super happy to work with them and would not replace them with anyone else. They simply go the extra mile.",
-    icon: <PenTool className="w-5 h-5" />,
+      "Zapturre helped us present our products with clarity and professionalism.Their structured creatives strengthened our brand perception in the market.We experienced better quality inquiries from contractors and dealers.",
   },
   {
-    name: "Sasha Morris",
-    titlePrefix: "Director of Product,",
-    company: "Relias",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop",
+    name: "MNP Enclave - Real Estate Development",
+    titlePrefix: "Founding Partner,",
+    company: "MNP Enclave",
+    image: "",
     quote:
-      "The level of detail and precision provided is unmatched. We were able to ship our new interface 3x faster than anticipated, with zero technical debt added to our stack.",
-    icon: <Layers className="w-5 h-5" />,
+      "Zapturre delivered focused creatives that highlighted trust and lifestyle appeal.Their understanding of real estate marketing helped attract serious buyers.The campaign supported both digital visibility and on-ground sales efforts.",
   },
   {
-    name: "Trond Erik Vee Aune",
-    titlePrefix: "CEO,",
-    company: "Vectron Bio",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
+    name: "VoltAge-Battery Regenerating Plant",
+    titlePrefix: "Founder,",
+    company: "VoltAge",
+    image: "",
     quote:
-      "A masterpiece of software engineering. It integrated seamlessly with our bio-informatics pipeline, allowing us to visualize complex data structures without any performance hit.",
-    icon: <Activity className="w-5 h-5" />,
+      "Zapturre simplified our battery regeneration process into clear visual messaging.Their approach helped communicate our value effectively to clients and partners.This significantly strengthened our credibility in the regenerative space.",
   },
 ];
 
@@ -156,7 +151,7 @@ export default function Testimonials() {
       gsap.from(newContent, { height: 0, duration: 0.6, ease: "expo.out" });
       gsap.to(newContent, { opacity: 1, duration: 0.4 });
 
-      const inner = newContent.querySelectorAll("img, p, i");
+      const inner = newContent.querySelectorAll("i, p, svg");
       gsap.fromTo(
         inner,
         { y: 10, opacity: 0 },
@@ -229,12 +224,8 @@ export default function Testimonials() {
 
                     <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-12">
                       <div className="flex flex-col gap-6 md:col-span-3">
-                        <div className="w-24 h-24 overflow-hidden shadow-2xl rounded-2xl bg-neutral-800 ring-1 ring-white/10">
-                          <img
-                            src={t.image}
-                            alt={t.name}
-                            className="object-cover w-full h-full transition-opacity duration-500 grayscale opacity-80 hover:opacity-100"
-                          />
+                        <div className="flex items-center justify-center w-24 h-24 overflow-hidden shadow-2xl rounded-2xl bg-neutral-800 ring-1 ring-white/10">
+                          <User className="w-12 h-12 text-neutral-500" />
                         </div>
 
                         <div className="flex items-center gap-2 text-neutral-400">
