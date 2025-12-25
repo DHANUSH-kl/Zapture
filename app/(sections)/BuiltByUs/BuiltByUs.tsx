@@ -19,10 +19,10 @@ export default function BuiltByUs() {
         <h2 className="text-5xl font-semibold tracking-tight md:text-7xl">
           Built by us
         </h2>
-        <p className="max-w-xl mt-4 text-neutral-400">
+        {/* <p className="max-w-xl mt-4 text-neutral-400">
           Handcrafted landing pages, systems, and brand experiences built for
           real businesses.
-        </p>
+        </p> */}
       </div>
 
       {/* Masonry Grid */}
