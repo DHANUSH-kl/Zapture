@@ -210,7 +210,7 @@ export default function Hero() {
                       >
                         <button
   onClick={() =>
-    window.open("https://forms.gle/yajTUhDy2oHbWUp59", "_blank")
+    window.open("https://calendly.com/zapturrecreatives/30min", "_blank")
   }
   className="flex items-center gap-2 px-6 py-3 text-sm font-medium text-black bg-white rounded"
 >

@@ -17,7 +17,9 @@ export default function Footer() {
           </div>
 
           <a
-            href="https://forms.gle/yajTUhDy2oHbWUp59"
+            href="https://calendly.com/zapturrecreatives/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-3 text-lg font-medium tracking-tight text-white transition-colors duration-300 group lg:text-xl hover:text-neutral-400"
           >
             Start a Project
